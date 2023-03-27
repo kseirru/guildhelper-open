@@ -19,7 +19,7 @@ Guild Helper - is a bot that is designed to simplify the activities of guild adm
     </tr>
     <tr>
         <td>Last Update</td>
-        <td>Feb 5 2023</td>
+        <td>March 28 2023</td>
     </tr>
 </table>
 
