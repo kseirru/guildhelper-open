@@ -1,9 +1,6 @@
 package com.kseirru.models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class GuildConfig {
     private String guildId = "0";
@@ -35,32 +32,37 @@ public class GuildConfig {
     public void update() {
         try {
             Connection connection = DriverManager.getConnection("JDBC:sqlite:gh.db");
-            Statement statement = connection.createStatement();
-
-            if(statement.executeQuery("SELECT * FROM guildConfig WHERE guild_id = '" + this.guildId + "'").next() == false) {
-                String query = String.format("""
-                        INSERT INTO guildConfig (guild_id, locale, logChannelId, logEnabled, messageEditEvent, messageDeleteEvent, modActionEvent, trafficEvent) VALUES ('%s', '%s', '%s', %s, %s, %s, %s, %s)""",
-                        this.locale, this.logChannelId,
-                        this.logEnabled ? 1 : 0,
-                        this.messageEditEvent ? 1 : 0,
-                        this.messageDeleteEvent ? 1 : 0,
-                        this.modActionEvent ? 1 : 0,
-                        this.trafficEvent ? 1 : 0);
-                statement.execute(query);
+            String query = String.format("SELECT * FROM guildConfig WHERE guild_id = '%s'", this.guildId);
+            ResultSet resultSet = connection.createStatement().executeQuery(query);
+            if (resultSet.next()) {
+                // Update existing record
+                String updateQuery = "UPDATE guildConfig SET locale=?, logChannelId=?, logEnabled=?, messageEditEvent=?, messageDeleteEvent=?, modActionEvent=?, trafficEvent=? WHERE guild_id=?";
+                try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
+                    statement.setString(1, this.locale);
+                    statement.setString(2, this.logChannelId);
+                    statement.setInt(3, this.logEnabled ? 1 : 0);
+                    statement.setInt(4, this.messageEditEvent ? 1 : 0);
+                    statement.setInt(5, this.messageDeleteEvent ? 1 : 0);
+                    statement.setInt(6, this.modActionEvent ? 1 : 0);
+                    statement.setInt(7, this.trafficEvent ? 1 : 0);
+                    statement.setString(8, this.guildId);
+                    statement.executeUpdate();
+                }
             } else {
-
-                String query = String.format("""
-                                UPDATE guildConfig SET locale = '%s', logChannelId = '%s', logEnabled = %s, messageEditEvent = %s, messageDeleteEvent = %s, modActionEvent = %s, trafficEvent = %s WHERE guild_id = '%s'""",
-                        this.locale, this.logChannelId,
-                        this.logEnabled ? 1 : 0,
-                        this.messageEditEvent ? 1 : 0,
-                        this.messageDeleteEvent ? 1 : 0,
-                        this.modActionEvent ? 1 : 0,
-                        this.trafficEvent ? 1 : 0);
-                statement.execute(query);
+                // Insert new record
+                String insertQuery = "INSERT INTO guildConfig (guild_id, locale, logChannelId, logEnabled, messageEditEvent, messageDeleteEvent, modActionEvent, trafficEvent) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
+                    statement.setString(1, this.guildId);
+                    statement.setString(2, this.locale);
+                    statement.setString(3, this.logChannelId);
+                    statement.setInt(4, this.logEnabled ? 1 : 0);
+                    statement.setInt(5, this.messageEditEvent ? 1 : 0);
+                    statement.setInt(6, this.messageDeleteEvent ? 1 : 0);
+                    statement.setInt(7, this.modActionEvent ? 1 : 0);
+                    statement.setInt(8, this.trafficEvent ? 1 : 0);
+                    statement.executeUpdate();
+                }
             }
-            statement.close();
-            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

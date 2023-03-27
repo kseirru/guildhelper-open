@@ -1,4 +1,4 @@
-package com.kseirru.core;
+package com.kseirru.utils;
 
 import java.awt.*;
 

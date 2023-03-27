@@ -1,7 +1,7 @@
 package com.kseirru.RestActions;
 
 import com.jagrosh.jdautilities.command.SlashCommandEvent;
-import com.kseirru.core.JDAColors;
+import com.kseirru.utils.JDAColors;
 import com.kseirru.core.Translator;
 import net.dv8tion.jda.api.EmbedBuilder;
 

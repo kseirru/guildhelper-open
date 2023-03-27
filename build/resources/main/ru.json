@@ -1,3 +1,13 @@
 {
+  "error": "Произошла ошибка!",
+
+  "embed.title": "Заголовок",
+  "embed.color": "Цвет",
+  "embed.description": "Текст внутри",
+  "embed.thumbnail": "Изображение справа",
+  "embed.image": "Изображение",
+
+  "embed.edit.wrong-id": "",
+  "embed.edit.modal.title": "",
 
 }

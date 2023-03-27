@@ -2,6 +2,15 @@ package com.kseirru.core;
 
 import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
+import com.kseirru.commands.admin.EmbedCommands;
+import com.kseirru.commands.admin.config;
+import com.kseirru.commands.moderation.ban;
+import com.kseirru.commands.moderation.kick;
+import com.kseirru.commands.moderation.timeout;
+import com.kseirru.commands.moderation.timeoutCancel;
+import com.kseirru.commands.other.info;
+import com.kseirru.events.logger.MessageEdit;
+import com.kseirru.events.logger.NewMessage;
 import com.kseirru.models.CachedMessage;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -19,7 +28,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class GuildHelper {
-    private ArrayList<CachedMessage> cachedMessages;
+    public static ArrayList<CachedMessage> cachedMessages = new ArrayList<>();
     public static Logger logger = LoggerFactory.getLogger(GuildHelper.class);
     private Connection db;
     private Statement sql;
@@ -36,6 +45,16 @@ public class GuildHelper {
                     .useHelpBuilder(false);
 
             /* Commands */
+            builder.addSlashCommand(new EmbedCommands());
+            builder.addSlashCommand(new config());
+
+            builder.addSlashCommand(new ban());
+            builder.addSlashCommand(new kick());
+            builder.addSlashCommand(new timeout());
+            builder.addSlashCommand(new timeoutCancel());
+
+            builder.addSlashCommand(new info());
+
 
             CommandClient commandClient = builder.build();
 
@@ -43,6 +62,7 @@ public class GuildHelper {
                     .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS)
                     .addEventListeners(commandClient)
                     .setEventPassthrough(true)
+                    .addEventListeners(new NewMessage(), new MessageEdit(), new MessageDelete())
                     .build();
 
             Message.suppressContentIntentWarning();
@@ -52,6 +72,7 @@ public class GuildHelper {
         }
 
     }
+
 
 
 }

@@ -8,8 +8,8 @@ import java.util.List;
 public class CachedMessage {
     private final String authorId;
     private final String messageId;
-    private final String content;
-    private final List<String> attachments = new ArrayList<>();
+    private String content;
+    private List<String> attachments = new ArrayList<>();
 
     public CachedMessage(Message message) {
         this.authorId = message.getAuthor().getId();
@@ -36,5 +36,13 @@ public class CachedMessage {
 
     public List<String> getAttachments() {
         return attachments;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setAttachments(List<String> attachments) {
+        this.attachments = attachments;
     }
 }

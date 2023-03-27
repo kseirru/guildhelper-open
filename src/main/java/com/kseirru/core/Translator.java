@@ -1,7 +1,10 @@
 package com.kseirru.core;
 
+import com.fasterxml.jackson.annotation.JsonKey;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kseirru.models.GuildConfig;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +15,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Translator {
     private String guildId;
@@ -21,41 +25,30 @@ public class Translator {
         this.guildId = guildId;
         this.locale = "en";
 
-        try {
-            Connection connection = DriverManager.getConnection("JDBC:sqlite:gh.db");
-            String query = String.format("SELECT locale FROM guildConfig WHERE guild_id = '%s'", this.guildId);
-            ResultSet resultSet = connection.createStatement().executeQuery(query);
-            while(resultSet.next()) {
-                this.locale = resultSet.getString("locale");
-            }
-            resultSet.close();
-            connection.close();
-        } catch (Exception ignored) {}
+        GuildConfig guildConfig = new GuildConfig(guildId);
+        this.locale = guildConfig.getLocale();
+
     }
 
     public String get(String key) {
-        String jsonFileName = String.format("%s.json", this.locale);
-        String jsonFileUrl = String.format("/%s", jsonFileName);
-        InputStream is = getClass().getResourceAsStream(jsonFileUrl);
-        StringBuilder jsonContent = new StringBuilder();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                jsonContent.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};
-            HashMap<String, String> translations = objectMapper.readValue(jsonContent.toString(), typeRef);
-            return translations.get(key);
-        } catch (IOException e) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            InputStream inputStream = ClassLoader.getSystemResourceAsStream(this.locale + ".json");
+            if (inputStream == null) {
+                inputStream = ClassLoader.getSystemResourceAsStream("en.json");
+                GuildHelper.logger.error("TRANSLATOR | inputStream is NULL!");
+            }
+            Map<String, String> map = objectMapper.readValue(inputStream, new TypeReference<>() {
+            });
+            String value = map.get(key);
+            if (value == null) {
+                LoggerFactory.getLogger("Translator").error("Key '" + key + "' not found in '" + locale + ".json' file!");
+                return key;
+            }
+            return value;
+        } catch (Exception e) {
             e.printStackTrace();
+            return key;
         }
-
-        return null;
     }
 }
