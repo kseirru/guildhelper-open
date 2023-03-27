@@ -23,4 +23,6 @@ Guild Helper - is a bot that is designed to simplify the activities of guild adm
     </tr>
 </table>
 
+## ⚠️ Lots of Shitty code!
+
 </div>
