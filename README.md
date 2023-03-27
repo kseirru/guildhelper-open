@@ -21,6 +21,22 @@ Guild Helper - is a bot that is designed to simplify the activities of guild adm
         <td>Last Update</td>
         <td>March 28 2023</td>
     </tr>
+    <tr>
+        <td>Supported Languages</td>
+        <td>Russian, English</td>
+    </tr>
+    <tr>
+        <td>Database</td>
+        <td>SQLite (Local)</td>
+    </tr>
+    <tr>
+        <td>Configuration File</td>
+        <td>.env</td>
+    </tr>
+    <tr>
+        <td>Developer</td>
+        <td>kseirru#8380</td>
+    </tr>
 </table>
 
 ## ⚠️ Lots of Shitty code!

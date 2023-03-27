@@ -13,6 +13,7 @@ import com.kseirru.events.embedCommands.embedEditAutocomplete;
 import com.kseirru.events.logger.*;
 import com.kseirru.events.other.unbanAutocomplete;
 import com.kseirru.models.CachedMessage;
+import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -36,7 +37,7 @@ public class GuildHelper {
 
     public GuildHelper(String token) {
         try {
-            this.db = DriverManager.getConnection("jdbc:sqlite:gh.db");
+            this.db = DriverManager.getConnection("jdbc:sqlite:" + Dotenv.load().get("database_filename"));
             this.sql = db.createStatement();
 
             CommandClientBuilder builder = new CommandClientBuilder()

@@ -1,114 +1,112 @@
 {
-  "error": "Произошла ошибка!",
-  "success": "Успешно!",
-  "unknown": "Что-то пошло не так!",
-  "empty-reason": "Причина не указана.",
-  "moderator-is": "Модератор:",
-  "violator-is": "Нарушитель:",
-  "user-is": "Пользователь:",
-  "reason-is": "Причина:",
-  "duration-is": "До:",
+  "error": "An error occurred!",
+  "success": "Success!",
+  "unknown": "Something went wrong...",
+  "empty-reason": "No reason specified.",
+  "moderator-is": "Moderator:",
+  "violator-is": "Violator:",
+  "user-is": "User:",
+  "reason-is": "Reason:",
+  "duration-is": "Until:",
 
-  "error.user-not-found": "Пользователь не найден!",
-  "error.self-purge": "Вы не можете наказать себя!",
-  "error.bot-purge": "Вы не можете наказать меня!",
-  "error.self-unmute": "Вы не можете снять заглушку сами с себя!",
-  "error.not-muted": "Пользователь не заглушен!",
-  "error.owner-purge": "Вы не можете наказать владельца сервера!",
-  "error.missing-permissions": "У вас недостаточно прав!",
-  "error.cant-interact": "Я не могу взаимодействовать с этим пользователем!",
-  "error.duration-timeunit": "Неправильно указан срок действия мута!",
-
-
-  "embed.title": "Заголовок",
-  "embed.color": "Цвет",
-  "embed.description": "Текст внутри",
-  "embed.thumbnail": "Изображение справа",
-  "embed.image": "Изображение",
-
-  "embed.create.modal.title": "Создать эмбед",
-
-  "embed.edit.wrong-id": "Сообщение с таким ID найти не удалось!\n\nИспользуйте команду в том канале, где находится эмбед!",
-  "embed.edit.modal.title": "Изменить эмбед",
-
-  "config.mainEmbed.title": "Настроить бота",
-  "config.mainEmbed.description": "Выберите категорию настроек через список ниже.",
-  "config.language.label": "Изменить язык",
-  "config.language.description": "Изменить язык, на котором будет работать бот.",
-  "config.logger.label": "Система логов",
-  "config.logger.description": "Настроить систему логов на этом сервере.",
-  "config.select.placeholder": "Выберите нужное",
-
-  "ban.success": "Пользователь успешно заблокирован!",
-  "ban.logMessage.title": "[BAN] Пользователь был заблокирован!",
-
-  "unban.success": "Пользователь был разблокирован",
-  "unban.logMessage.title": "[UNBAN] Пользователь был разблокирован!",
-  "unban.autocomplete.no-bans": "Блокировок не обнаружено!",
-
-  "kick.success": "Пользователь был кикнут с сервера!",
-  "kick.logMessage.title": "[KICK] Пользователь был кикнут!",
-
-  "mute.success": "Пользователь был успешно заглушен!",
-  "mute.logMessage.title": "[MUTE] Пользователь был заглушен!",
-
-  "unmute.success": "Пользователь больше не заглушен!",
-  "unmute.unmute-date": "Мут длился до:",
-  "unmute.logMessage.title": "[UNMUTE] Заглушка снята с пользователя!",
-
-  "info.embed.title": "Информация про ",
-  "info.embed.description": "**GuildHelper** - Бот, созданный с целью упростить деятельность администраторов.",
-  "info.guilds": "Серверов",
-  "info.botInfo": "Информация:",
-  "info.developer": "Разработчик:",
-  "info.latency": "Пинг:",
-  "info.specialThanks": "Особое спасибо:",
-  "info.ifError": "Если вы хотите сообщить об ошибке или предложить идею, то сообщите об этом на сервере-поддержке бота.\nПерейти в него можно по кнопке ниже.",
-  "info.dataUsageTitle": "Хранение информации:",
-  "info.dataUsage": "Бот сохраняет в своей памяти сообщения, отправленные во время работы. Данные стираются после перезагрузки бота.",
-
-  "messageEdit.embed.title": "Изменено сообщение",
-  "messageEdit.channel": "В канале:",
-  "messageEdit.oldMessage": "Сообщение до:",
-  "messageEdit.newMessage": "Сообщение после:",
-
-  "messageDelete.embed.title": "Удалено сообщение",
-  "messageDelete.channel": "В канале:",
-  "messageDelete.attachments": "Приложенные файлы:",
-
-  "messageEditAC.noEmbeds": "В этом канале эмбедов нет!",
-
-  "trafficLogger.join.title": "[MEMBER +] Новый участник!",
-  "trafficLogger.discord.tag": "Тег",
-  "trafficLogger.discord.registerDate": "Дата регистрации",
-  "trafficLogger.discord.members": "На сервере уже %s участник(а/ов)!",
-  "trafficLogger.userInfo": "Информация о пользователе:",
-
-  "trafficLogger.leave.title": "[MEMBER –] Участник покинул сервер!",
-
-  "lang.config.embed.title": "Выбор языка",
-  "lang.config.embed.description": "Выберите язык, на котором будет работать бот через список ниже.",
-  "lang.config.russian": "Русский язык",
-  "lang.config.russian.description": "Бот будет работать на русском языке.",
-  "lang.config.english": "Английский язык",
-  "lang.config.english.description": "Бот будет работать на английском язык.",
-  "lang.config.select.placeholder": "Выберите язык",
-
-  "log.config.embed.title": "Настройка системы логов",
-  "log.config.embed.description": "Настройте систему логов через список и кнопку ниже.",
-  "log.config.logEnabled": "Логи включены",
-  "log.config.logDisabled": "Логи выключены",
-  "log.config.messageDelete.label": "Удаление сообщений",
-  "log.config.messageDelete.description": "Отправлять сообщение про удаленное сообщение",
-  "log.config.messageEdit.label": "Редактирование сообщений",
-  "log.config.messageEdit.description": "Отправлять сообщение про редактирование сообщения",
-  "log.config.modAction.label": "Действия модерации",
-  "log.config.modAction.description": "Отправлять сообщение при действиях модерации",
-  "log.config.traffic.label": "Трафик сервера",
-  "log.config.traffic.description": "Отправлять сообщение при входе/выходе участника",
-  "log.config.select.log_channel.placeholder": "Выберите канал для логов",
-
-  "log.config.logChannel.success": "Канал для логов был успешно изменен!"
+  "error.user-not-found": "User not found!",
+  "error.self-purge": "You can't punish yourself!",
+  "error.bot-purge": "You can't punish me!",
+  "error.self-unmute": "You can't unmute yourself!",
+  "error.not-muted": "User not muted!",
+  "error.owner-purge": "You can't punish guild owner!",
+  "error.missing-permissions": "You don't have enough rights!",
+  "error.cant-interact": "I can't interact with this user!",
+  "error.duration-timeunit": "The expiration date of the mute is incorrectly specified!",
 
 
+  "embed.title": "Title",
+  "embed.color": "Color",
+  "embed.description": "Description",
+  "embed.thumbnail": "Thumbnail",
+  "embed.image": "Image",
+
+  "embed.create.modal.title": "Embed create",
+
+  "embed.edit.wrong-id": "The message with this ID could not be found!\n\nИспользуйте команду в том канале, где находится эмбед!",
+  "embed.edit.modal.title": "Embed edit",
+
+  "config.mainEmbed.title": "Configure the bot",
+  "config.mainEmbed.description": "Select the settings category through the list below.",
+  "config.language.label": "Change language",
+  "config.language.description": "Change the language in which the bot will work.",
+  "config.logger.label": "Log system",
+  "config.logger.description": "Configure the log system on this server.",
+  "config.select.placeholder": "Select the category",
+
+  "ban.success": "The user has been successfully banned!",
+  "ban.logMessage.title": "[BAN] The user was banned!",
+
+  "unban.success": "The user has been successfully unbanned!",
+  "unban.logMessage.title": "[UNBAN] The user has been unbanned!",
+  "unban.autocomplete.no-bans": "No bans detected!",
+
+  "kick.success": "The user was kicked from the guild!",
+  "kick.logMessage.title": "[KICK] The user was kicked!",
+
+  "mute.success": "The user was successfully muted!",
+  "mute.logMessage.title": "[MUTE] The user was muted!",
+
+  "unmute.success": "The user is no longer muted!",
+  "unmute.unmute-date": "Mute should end:",
+  "unmute.logMessage.title": "[UNMUTE] Mute is removed from the user!",
+
+  "info.embed.title": "Information about ",
+  "info.embed.description": "**GuildHelper** - A bot created to simplify the activities of administrators.",
+  "info.guilds": "Guilds",
+  "info.botInfo": "Information:",
+  "info.developer": "Developer:",
+  "info.latency": "Latency:",
+  "info.specialThanks": "Special thanks:",
+  "info.ifError": "If you want to report a bug or suggest an idea, then report it to the bot support server.\nYou can go to it by clicking the button below.",
+  "info.dataUsageTitle": "Data usage:",
+  "info.dataUsage": "The bot stores in its memory the messages sent during operation. The data is erased after the bot is restarted.",
+
+  "messageEdit.embed.title": "Message edited",
+  "messageEdit.channel": "Channel:",
+  "messageEdit.oldMessage": "Message before:",
+  "messageEdit.newMessage": "Message after:",
+
+  "messageDelete.embed.title": "Message deleted",
+  "messageDelete.channel": "Channel:",
+  "messageDelete.attachments": "Message attachments:",
+
+  "messageEditAC.noEmbeds": "There are no embeds in this channel!",
+
+  "trafficLogger.join.title": "[MEMBER +] New member!",
+  "trafficLogger.discord.tag": "Tag",
+  "trafficLogger.discord.registerDate": "Register date",
+  "trafficLogger.discord.members": "There is already %s member(s) on the server!",
+  "trafficLogger.userInfo": "Information about user:",
+
+  "trafficLogger.leave.title": "[MEMBER –] The member left the guild!",
+
+  "lang.config.embed.title": "Choose language",
+  "lang.config.embed.description": "Select the language in which the bot will work through the list below.",
+  "lang.config.russian": "Russian language",
+  "lang.config.russian.description": "The bot will work in Russian.",
+  "lang.config.english": "English language",
+  "lang.config.english.description": "The bot will work in English.",
+  "lang.config.select.placeholder": "Select a language",
+
+  "log.config.embed.title": "Configuring the log system",
+  "log.config.embed.description": "Configure the log system via the list and the button below.",
+  "log.config.logEnabled": "Logs are enabled",
+  "log.config.logDisabled": "Logs are disabled",
+  "log.config.messageDelete.label": "MessageDeleted Event",
+  "log.config.messageDelete.description": "Send a message about a deleted message",
+  "log.config.messageEdit.label": "MessageEdited Event",
+  "log.config.messageEdit.description": "Send a message about editing a message",
+  "log.config.modAction.label": "ModAction Event",
+  "log.config.modAction.description": "Send a message about moderation actions",
+  "log.config.traffic.label": "Traffic Event",
+  "log.config.traffic.description": "Send a message when a member join/leave",
+  "log.config.select.log_channel.placeholder": "Select a channel for logs",
+
+  "log.config.logChannel.success": "The channel for logs has been successfully changed!"
 }
