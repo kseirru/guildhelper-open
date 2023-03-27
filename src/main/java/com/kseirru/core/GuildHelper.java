@@ -4,13 +4,14 @@ import com.jagrosh.jdautilities.command.CommandClient;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.kseirru.commands.admin.EmbedCommands;
 import com.kseirru.commands.admin.config;
-import com.kseirru.commands.moderation.ban;
-import com.kseirru.commands.moderation.kick;
-import com.kseirru.commands.moderation.timeout;
-import com.kseirru.commands.moderation.timeoutCancel;
+import com.kseirru.commands.moderation.*;
 import com.kseirru.commands.other.info;
-import com.kseirru.events.logger.MessageEdit;
-import com.kseirru.events.logger.NewMessage;
+import com.kseirru.events.configs.*;
+import com.kseirru.events.embedCommands.embedCreate;
+import com.kseirru.events.embedCommands.embedEdit;
+import com.kseirru.events.embedCommands.embedEditAutocomplete;
+import com.kseirru.events.logger.*;
+import com.kseirru.events.other.unbanAutocomplete;
 import com.kseirru.models.CachedMessage;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -30,8 +31,8 @@ import java.util.ArrayList;
 public class GuildHelper {
     public static ArrayList<CachedMessage> cachedMessages = new ArrayList<>();
     public static Logger logger = LoggerFactory.getLogger(GuildHelper.class);
-    private Connection db;
-    private Statement sql;
+    public static Connection db;
+    public static Statement sql;
 
     public GuildHelper(String token) {
         try {
@@ -52,6 +53,7 @@ public class GuildHelper {
             builder.addSlashCommand(new kick());
             builder.addSlashCommand(new timeout());
             builder.addSlashCommand(new timeoutCancel());
+            builder.addSlashCommand(new unban());
 
             builder.addSlashCommand(new info());
 
@@ -62,7 +64,12 @@ public class GuildHelper {
                     .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS)
                     .addEventListeners(commandClient)
                     .setEventPassthrough(true)
-                    .addEventListeners(new NewMessage(), new MessageEdit(), new MessageDelete())
+                    .addEventListeners(
+                            new NewMessage(), new MessageEdit(), new MessageDelete(),
+                            new NewGuild(), new embedCreate(), new embedEditAutocomplete(),
+                            new embedEdit(), new TrafficLogger(), new LangConfig(),
+                            new LangConfigMenu(), new LogChannelConfig(), new LogStatusConfig(),
+                            new LogConfigMenu(), new unbanAutocomplete())
                     .build();
 
             Message.suppressContentIntentWarning();

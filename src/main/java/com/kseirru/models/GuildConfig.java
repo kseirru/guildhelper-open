@@ -1,5 +1,7 @@
 package com.kseirru.models;
 
+import com.kseirru.core.GuildHelper;
+
 import java.sql.*;
 
 public class GuildConfig {
@@ -15,43 +17,20 @@ public class GuildConfig {
     public GuildConfig(String guildId) {
         this.guildId = guildId;
         try {
-            Connection connection = DriverManager.getConnection("JDBC:sqlite:gh.db");
             String query = String.format("SELECT * FROM guildConfig WHERE guild_id = '%s'", this.guildId);
-            ResultSet resultSet = connection.createStatement().executeQuery(query);
-            while (resultSet.next()) {
+            ResultSet resultSet = GuildHelper.sql.executeQuery(query);
+            if (resultSet.next()) {
                 this.locale = resultSet.getString("locale");
                 this.logChannelId = resultSet.getString("logChannelId");
                 this.logEnabled = resultSet.getInt("logEnabled") == 1;
                 this.messageEditEvent = resultSet.getInt("messageEditEvent") == 1;
+                this.messageDeleteEvent = resultSet.getInt("messageDeleteEvent") == 1;
                 this.modActionEvent = resultSet.getInt("modActionEvent") == 1;
                 this.trafficEvent = resultSet.getInt("trafficEvent") == 1;
-            }
-        } catch (Exception ignored) {}
-    }
-
-    public void update() {
-        try {
-            Connection connection = DriverManager.getConnection("JDBC:sqlite:gh.db");
-            String query = String.format("SELECT * FROM guildConfig WHERE guild_id = '%s'", this.guildId);
-            ResultSet resultSet = connection.createStatement().executeQuery(query);
-            if (resultSet.next()) {
-                // Update existing record
-                String updateQuery = "UPDATE guildConfig SET locale=?, logChannelId=?, logEnabled=?, messageEditEvent=?, messageDeleteEvent=?, modActionEvent=?, trafficEvent=? WHERE guild_id=?";
-                try (PreparedStatement statement = connection.prepareStatement(updateQuery)) {
-                    statement.setString(1, this.locale);
-                    statement.setString(2, this.logChannelId);
-                    statement.setInt(3, this.logEnabled ? 1 : 0);
-                    statement.setInt(4, this.messageEditEvent ? 1 : 0);
-                    statement.setInt(5, this.messageDeleteEvent ? 1 : 0);
-                    statement.setInt(6, this.modActionEvent ? 1 : 0);
-                    statement.setInt(7, this.trafficEvent ? 1 : 0);
-                    statement.setString(8, this.guildId);
-                    statement.executeUpdate();
-                }
             } else {
                 // Insert new record
                 String insertQuery = "INSERT INTO guildConfig (guild_id, locale, logChannelId, logEnabled, messageEditEvent, messageDeleteEvent, modActionEvent, trafficEvent) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                try (PreparedStatement statement = connection.prepareStatement(insertQuery)) {
+                try (PreparedStatement statement = GuildHelper.db.prepareStatement(insertQuery)) {
                     statement.setString(1, this.guildId);
                     statement.setString(2, this.locale);
                     statement.setString(3, this.logChannelId);
@@ -61,7 +40,26 @@ public class GuildConfig {
                     statement.setInt(7, this.modActionEvent ? 1 : 0);
                     statement.setInt(8, this.trafficEvent ? 1 : 0);
                     statement.executeUpdate();
+                    statement.close();
                 }
+            }
+        } catch (Exception ignored) {}
+    }
+
+    public void update() {
+        try {
+            String updateQuery = "UPDATE guildConfig SET locale=?, logChannelId=?, logEnabled=?, messageEditEvent=?, messageDeleteEvent=?, modActionEvent=?, trafficEvent=? WHERE guild_id=?";
+            try (PreparedStatement statement = GuildHelper.db.prepareStatement(updateQuery)) {
+                statement.setString(1, this.locale);
+                statement.setString(2, this.logChannelId);
+                statement.setInt(3, this.logEnabled ? 1 : 0);
+                statement.setInt(4, this.messageEditEvent ? 1 : 0);
+                statement.setInt(5, this.messageDeleteEvent ? 1 : 0);
+                statement.setInt(6, this.modActionEvent ? 1 : 0);
+                statement.setInt(7, this.trafficEvent ? 1 : 0);
+                statement.setString(8, this.guildId);
+                statement.executeUpdate();
+                statement.close();
             }
         } catch (Exception e) {
             e.printStackTrace();

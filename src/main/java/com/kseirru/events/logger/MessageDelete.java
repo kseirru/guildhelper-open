@@ -12,44 +12,42 @@ import net.dv8tion.jda.api.events.message.MessageDeleteEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.messages.MessageCreateBuilder;
 
+import java.time.Instant;
+
 public class MessageDelete extends ListenerAdapter {
     @Override
     public void onMessageDelete(MessageDeleteEvent event) {
         Guild guild = event.getGuild();
 
         GuildConfig guildConfig = new GuildConfig(guild.getId());
-        CachedMessage cachedMessage = Caching.getCachedMessage(event.getMessageId());
+        CachedMessage cachedMessage = Cache.getCachedMessage(event.getMessageId());
 
-        if(!guildConfig.logEnabled || !guildConfig.messageDeleteEvent || guildConfig.logChannelId.equals("0") || cachedMessage == null) {
+        if(!guildConfig.LogEnabledStatus() || !guildConfig.MessageDeleteEventStatus() || guildConfig.getLogChannelId().equals("0") || cachedMessage == null) {
             return;
         }
 
-        if(cachedMessage.author_id == null || cachedMessage.content == null) {
+        if(cachedMessage.getAuthorId() == null || cachedMessage.getContent() == null) {
             return;
         }
 
-        Translator tr = new Translator(guild.getId(), "messageDelete");
+        Translator tr = new Translator(guild.getId());
 
         try {
-
-
-            TextChannel logChannel = event.getJDA().getChannelById(TextChannel.class, guildConfig.logChannelId);
-
+            TextChannel logChannel = event.getJDA().getChannelById(TextChannel.class, guildConfig.getLogChannelId());
             EmbedBuilder embedBuilder = new EmbedBuilder()
-                    .setTitle(tr.get("embed-title", false))
+                    .setTitle(tr.get("messageDelete.embed.title"))
                     .setColor(JDAColors.DEFAULT)
-                    .setDescription(tr.get("user-is", true) + " <@" + cachedMessage.author_id + ">\n" +
-                            tr.get("channel", false) + "<#" + event.getChannel().getId() + ">\n\n```\n" + cachedMessage.content.replace("```", "'''") + "\n```")
+                    .setDescription(tr.get("user-is") + " <@" + cachedMessage.getAuthorId() + ">\n" +
+                            tr.get("messageDelete.channel") + "<#" + event.getChannel().getId() + ">\n\n```\n" + cachedMessage.getContent().replace("```", "'''") + "\n```")
                     .setTimestamp(Instant.now());
-
-            if(cachedMessage.attachments.toArray().length != 0) {
+            if(cachedMessage.getAttachments().toArray().length != 0) {
                 StringBuilder stringBuilder = new StringBuilder();
-                for (String url : cachedMessage.attachments) {
+                for (String url : cachedMessage.getAttachments()) {
                     stringBuilder.append(url).append("\n");
                 }
                 String attachments = stringBuilder.toString();
                 attachments = attachments.substring(0, attachments.length());
-                embedBuilder.addField(tr.get("attachments"), attachments, false);
+                embedBuilder.addField(tr.get("messageDelete.attachments"), attachments, false);
             }
 
             MessageCreateBuilder messageCreateBuilder = new MessageCreateBuilder()

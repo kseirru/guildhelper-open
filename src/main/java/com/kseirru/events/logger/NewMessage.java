@@ -26,8 +26,5 @@ public class NewMessage extends ListenerAdapter {
         if(GuildHelper.cachedMessages.toArray().length == 1001) {
             Cache.deleteExcessMessages();
         }
-
-        Cache.printAllMessages();
-
     }
 }
