@@ -59,20 +59,6 @@ public class GuildHelper {
             builder.addSlashCommand(new info());
 
 
-            CommandClient commandClient = builder.build();
-
-            JDA jda = JDABuilder.create(token, GatewayIntent.getIntents(130815))
-                    .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS)
-                    .addEventListeners(commandClient)
-                    .setEventPassthrough(true)
-                    .addEventListeners(
-                            new NewMessage(), new MessageEdit(), new MessageDelete(),
-                            new NewGuild(), new embedCreate(), new embedEditAutocomplete(),
-                            new embedEdit(), new TrafficLogger(), new LangConfig(),
-                            new LangConfigMenu(), new LogChannelConfig(), new LogStatusConfig(),
-                            new LogConfigMenu(), new unbanAutocomplete())
-                    .build();
-
             String query = """
                     CREATE TABLE IF NOT EXISTS guildConfig (
                       guild_id INTEGER,
@@ -95,6 +81,21 @@ public class GuildHelper {
                     """;
 
             GuildHelper.sql.execute(query);
+
+
+            CommandClient commandClient = builder.build();
+
+            JDA jda = JDABuilder.create(token, GatewayIntent.getIntents(130815))
+                    .disableCache(CacheFlag.ACTIVITY, CacheFlag.CLIENT_STATUS, CacheFlag.ONLINE_STATUS)
+                    .addEventListeners(commandClient)
+                    .setEventPassthrough(true)
+                    .addEventListeners(
+                            new NewMessage(), new MessageEdit(), new MessageDelete(),
+                            new NewGuild(), new embedCreate(), new embedEditAutocomplete(),
+                            new embedEdit(), new TrafficLogger(), new LangConfig(),
+                            new LangConfigMenu(), new LogChannelConfig(), new LogStatusConfig(),
+                            new LogConfigMenu(), new unbanAutocomplete())
+                    .build();
 
             Message.suppressContentIntentWarning();
 
