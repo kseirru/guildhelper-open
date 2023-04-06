@@ -73,6 +73,29 @@ public class GuildHelper {
                             new LogConfigMenu(), new unbanAutocomplete())
                     .build();
 
+            String query = """
+                    CREATE TABLE IF NOT EXISTS guildConfig (
+                      guild_id INTEGER,
+                      locale TEXT,
+                      logChannelId TEXT,
+                      logEnabled INTEGER,
+                      messageEditEvent INTEGER,
+                      messageDeleteEvent INTEGER,
+                      modActionEvent INTEGER,
+                      trafficEvent INTEGER,
+                      PRIMARY KEY (guild_id)
+                    );
+                                        
+                    CREATE TABLE IF NOT EXISTS embedCache (
+                      channelId TEXT,
+                      messageId TEXT,
+                      embedTitle TEXT,
+                      PRIMARY KEY (channelId, messageId)
+                    );
+                    """;
+
+            GuildHelper.sql.execute(query);
+
             Message.suppressContentIntentWarning();
 
         } catch (Exception e) {
